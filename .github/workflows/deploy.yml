@@ -1,1 +1,24 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # or the branch you want to use for deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # This fetches all history for all branches, which is useful for deployments
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub
+          publish_dir: ./public  # Directory to deploy (change this if your files are elsewhere)
+          keep_files: false  # Set to true to keep existing files in the GitHub Pages branch
 
